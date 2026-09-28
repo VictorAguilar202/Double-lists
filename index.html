@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AquaSurvey | Doubly Linked Survey Route</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><div class="mark">AS</div><div><strong>AquaSurvey</strong><span>SUBSEA ARCHAEOLOGY OPERATIONS</span></div></div>
+  <div class="status"><i></i> <span id="connection">Checking connection...</span></div>
+</header>
+<main class="container">
+  <section class="hero">
+    <div><p class="eyebrow">FIELD ROUTE / DOUBLY LINKED STRUCTURE</p><h1>Map the past,<br><em>checkpoint by checkpoint.</em></h1><p class="intro">Manage a subsea archaeological survey route where researchers may move forward and backward and insert or remove checkpoints as new evidence appears.</p></div>
+    <div class="hero-card"><span>STRUCTURE</span><strong>HEAD ↔ NODES ↔ TAIL</strong><small>Each node stores PREV + NEXT references.</small></div>
+  </section>
+  <section class="metrics">
+    <article><span>CHECKPOINTS</span><strong id="count">0</strong><small>Active survey route</small></article>
+    <article><span>HEAD</span><strong id="head">—</strong><small>First node</small></article>
+    <article><span>TAIL</span><strong id="tail">—</strong><small>Last node</small></article>
+    <article><span>SELECTED</span><strong id="selected">—</strong><small>Current node</small></article>
+  </section>
+  <section class="workspace">
+    <section class="panel route-panel">
+      <div class="panel-title"><div><p class="eyebrow">01 / ROUTE VISUALIZER</p><h2>Survey checkpoints</h2></div><button class="outline" id="resetBtn" type="button">Reset demo</button></div>
+      <div class="direction-bar"><span>FORWARD: HEAD → TAIL</span><button id="forwardBtn">Traverse forward →</button><button id="backBtn">← Traverse backward</button></div>
+      <div id="route" class="route"></div>
+    </section>
+    <aside class="panel controls">
+      <p class="eyebrow">02 / NODE OPERATIONS</p><h2>Modify the route</h2>
+      <p class="helper">Select a checkpoint, then add a new node after it or remove the selected node. The Python backend updates both links.</p>
+      <form id="checkpointForm">
+        <label>Checkpoint name<input id="name" maxlength="45" required placeholder="e.g. Bronze vessel fragments"></label>
+        <label>Survey zone<input id="zone" maxlength="25" required placeholder="e.g. Sector F"></label>
+        <label>Depth (meters)<input id="depth" type="number" min="1" max="200" required placeholder="80"></label>
+        <label>Status<select id="status"><option>Pending</option><option>Mapped</option><option>Needs review</option><option>Restricted</option></select></label>
+        <div class="button-row"><button class="primary" type="submit">Append to tail</button><button class="secondary" type="button" id="insertBtn">Insert after selected</button></div>
+      </form>
+      <button class="danger" id="deleteBtn" type="button">Delete selected node</button>
+      <div class="explain"><strong>Why a doubly linked list?</strong><p>Survey checkpoints can change during field work. A node keeps a reference to the previous and next checkpoint, making forward/backward traversal and local insertion or deletion natural operations.</p></div>
+    </aside>
+  </section>
+  <section class="panel"><div class="panel-title"><div><p class="eyebrow">03 / BACKWARD VIEW</p><h2>Reverse traversal</h2></div><span class="mini-note">TAIL → HEAD</span></div><div id="backward" class="backward"></div></section>
+  <footer>AquaSurvey · Educational prototype · Python + HTML/CSS/JavaScript · Doubly Linked List</footer>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
